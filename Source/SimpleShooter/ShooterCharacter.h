@@ -19,6 +19,23 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+private:
+	UPROPERTY(EditAnywhere, Category = "Input")
+	class UInputMappingContext* MappingContext;
+		
+	UPROPERTY(EditAnywhere, Category = "Input")
+	class UInputAction* JumpAction;
+
+	UPROPERTY(EditAnywhere, Category = "Input")
+	class UInputAction* LookAction;
+
+	UPROPERTY(EditAnywhere, Category = "Input")
+	class UInputAction* MoveAction;
+
+	void Move(const struct FInputActionValue& Value);
+
+	void Look(const struct FInputActionValue& Look);
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

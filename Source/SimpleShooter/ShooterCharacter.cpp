@@ -2,6 +2,9 @@
 
 
 #include "ShooterCharacter.h"
+#include "EnhancedInputComponent.h"
+#include "EnhancedInputSubsystems.h"
+#include "InputActionValue.h"
 
 // Sets default values
 AShooterCharacter::AShooterCharacter()
@@ -16,6 +19,13 @@ void AShooterCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	if (APlayerController* PlayerController = Cast<APlayerController>(GetController()))
+	{
+		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
+		{
+			Subsystem->AddMappingContext(MappingContext, 0);
+		}
+	}
 }
 
 // Called every frame
@@ -30,5 +40,21 @@ void AShooterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent))
+	{
+		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AShooterCharacter::Move);
+		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AShooterCharacter::Look);
+	}
+
 }
 
+void AShooterCharacter::Move(const FInputActionValue& Value)
+{
+	AddMovementInput(GetActorForwardVector(), Value.Get<float>());
+}
+
+void AShooterCharacter::Look(const FInputActionValue& Value)
+{
+	AddControllerYawInput(Value.Get<FVector2D>().X);
+	AddControllerPitchInput(Value.Get<FVector2D>().Y);
+}
