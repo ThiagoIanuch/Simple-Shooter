@@ -34,7 +34,7 @@ private:
 
 	void Move(const struct FInputActionValue& Value);
 
-	void Look(const struct FInputActionValue& Look);
+	void Look(const struct FInputActionValue& Value);
 
 public:	
 	// Called every frame

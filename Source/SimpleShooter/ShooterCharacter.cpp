@@ -44,17 +44,23 @@ void AShooterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 	{
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AShooterCharacter::Move);
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AShooterCharacter::Look);
+		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &AShooterCharacter::Jump);
+		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &AShooterCharacter::StopJumping);
 	}
-
 }
 
 void AShooterCharacter::Move(const FInputActionValue& Value)
 {
-	AddMovementInput(GetActorForwardVector(), Value.Get<float>());
+	FVector2D AxisValue = Value.Get<FVector2D>();
+
+	AddMovementInput(GetActorRightVector(), AxisValue.X);
+	AddMovementInput(GetActorForwardVector(), AxisValue.Y);
 }
 
 void AShooterCharacter::Look(const FInputActionValue& Value)
 {
-	AddControllerYawInput(Value.Get<FVector2D>().X);
-	AddControllerPitchInput(Value.Get<FVector2D>().Y);
+	FVector2D AxisValue = Value.Get<FVector2D>();
+
+	AddControllerYawInput(AxisValue.X);
+	AddControllerPitchInput(AxisValue.Y);
 }
