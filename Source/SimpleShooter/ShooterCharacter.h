@@ -19,6 +19,13 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+public:	
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+
+	// Called to bind functionality to input
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
 private:
 	UPROPERTY(EditAnywhere, Category = "Input")
 	class UInputMappingContext* MappingContext;
@@ -32,15 +39,18 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Input")
 	class UInputAction* MoveAction;
 
+	UPROPERTY(EditAnywhere, Category = "Input")
+	class UInputAction* ShootAction;
+
 	void Move(const struct FInputActionValue& Value);
 
 	void Look(const struct FInputActionValue& Value);
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+	void Shoot(const struct FInputActionValue& Value);
 
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<class AGun> GunClass;
 
+	UPROPERTY()
+	AGun* Gun;
 };

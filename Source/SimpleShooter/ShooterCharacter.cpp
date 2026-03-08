@@ -5,6 +5,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+#include "Gun.h"
 
 // Sets default values
 AShooterCharacter::AShooterCharacter()
@@ -18,7 +19,7 @@ AShooterCharacter::AShooterCharacter()
 void AShooterCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 	if (APlayerController* PlayerController = Cast<APlayerController>(GetController()))
 	{
 		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
@@ -26,6 +27,14 @@ void AShooterCharacter::BeginPlay()
 			Subsystem->AddMappingContext(MappingContext, 0);
 		}
 	}
+	
+	Gun = GetWorld()->SpawnActor<AGun>(GunClass);
+
+	GetMesh()->HideBoneByName(TEXT("weapon_r"), EPhysBodyOp::PBO_None);
+
+	Gun->AttachToComponent(GetMesh(), FAttachmentTransformRules::KeepRelativeTransform, TEXT("weapon_r_socket"));
+
+	Gun->SetOwner(this);
 }
 
 // Called every frame
@@ -44,8 +53,10 @@ void AShooterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 	{
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AShooterCharacter::Move);
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AShooterCharacter::Look);
+		EnhancedInputComponent->BindAction(ShootAction, ETriggerEvent::Triggered, this, &AShooterCharacter::Shoot);
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &AShooterCharacter::Jump);
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &AShooterCharacter::StopJumping);
+
 	}
 }
 
@@ -63,4 +74,9 @@ void AShooterCharacter::Look(const FInputActionValue& Value)
 
 	AddControllerYawInput(AxisValue.X);
 	AddControllerPitchInput(AxisValue.Y);
+}
+
+void AShooterCharacter::Shoot(const FInputActionValue& Value)
+{
+	Gun->PullTrigger();
 }
