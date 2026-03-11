@@ -71,13 +71,12 @@ float AShooterCharacter::TakeDamage(float DamageAmount, FDamageEvent const& Dama
 
 	UE_LOG(LogTemp, Warning, TEXT("%f"), Health);
 
-	if (Health <= 0)
-	{
-		Destroy();
-		Gun->Destroy();
-	}
-
 	return DamageToApply;
+}
+
+bool AShooterCharacter::IsDead() const
+{
+	return Health <= 0;
 }
 
 void AShooterCharacter::Move(const FInputActionValue& Value)
