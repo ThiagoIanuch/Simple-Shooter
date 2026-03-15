@@ -22,6 +22,8 @@ public:
 
 	bool IsDead() const;
 
+	virtual void GameHasEnded(AActor* EndGameFocus, bool bIsWinner) override;
+
 private:
 	// float AcceptanceRadius = 200.f;
 

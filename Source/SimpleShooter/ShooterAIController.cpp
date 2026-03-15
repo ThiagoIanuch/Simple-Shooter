@@ -6,6 +6,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "ShooterCharacter.h"
+#include "BrainComponent.h"
 
 void AShooterAIController::BeginPlay()
 {
@@ -34,4 +35,14 @@ bool AShooterAIController::IsDead() const
 	}
 
 	return true;
+}
+
+void AShooterAIController::GameHasEnded(AActor* EndGameFocus, bool bIsWinner)
+{
+	Super::GameHasEnded(EndGameFocus, bIsWinner);
+
+	if (GetBrainComponent())
+	{
+		GetBrainComponent()->StopLogic(TEXT("GameEnded"));
+	}
 }
