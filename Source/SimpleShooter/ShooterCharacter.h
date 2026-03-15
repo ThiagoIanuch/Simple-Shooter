@@ -31,6 +31,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	bool IsDead() const;
 
+	void Shoot();
+
 private:
 	UPROPERTY(EditAnywhere, Category = "Input")
 	class UInputMappingContext* MappingContext;
@@ -50,8 +52,6 @@ private:
 	void Move(const struct FInputActionValue& Value);
 
 	void Look(const struct FInputActionValue& Value);
-
-	void Shoot(const struct FInputActionValue& Value);
 
 	UPROPERTY(EditDefaultsOnly)
 	float MaxHealth = 100;

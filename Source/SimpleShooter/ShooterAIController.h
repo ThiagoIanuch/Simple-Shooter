@@ -20,6 +20,8 @@ protected:
 public:
 	virtual void Tick(float DeltaTime) override;
 
+	bool IsDead() const;
+
 private:
 	// float AcceptanceRadius = 200.f;
 
