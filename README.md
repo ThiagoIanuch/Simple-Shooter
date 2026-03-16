@@ -2,7 +2,7 @@
 
 Simple Shooter is a third person shooter game developed in Unreal Engine 5 following part 5/5 of the course "<a href="https://www.udemy.com/course/unrealcourse/">Unreal Engine 5 C++ Developer: Learn C++ & Make Video Games</a>" by Ben Tristem and GameDev.tv Team.
 
-<img width="1919" height="1079" alt="image" src="img" />
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/aa929031-b004-4481-8fa8-5bb35fc114aa" />
 
 video
 
