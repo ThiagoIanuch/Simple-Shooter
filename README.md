@@ -4,7 +4,8 @@ Simple Shooter is a third person shooter game developed in Unreal Engine 5 follo
 
 <img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/aa929031-b004-4481-8fa8-5bb35fc114aa" />
 
-video
+
+https://github.com/user-attachments/assets/e116cb04-a7d7-4f06-a939-9c1962607f53
 
 ## Build with
 ![Unreal Engine](https://img.shields.io/badge/Unreal%20Engine%205-%23313131.svg?style=for-the-badge&logo=unrealengine&logoColor=white) ![C++](https://img.shields.io/badge/C++-%235C2D91.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white) ![Blueprints](https://img.shields.io/badge/Blueprints-blue?style=for-the-badge&logo=unrealengine&logoColor=white)
